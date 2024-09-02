@@ -9,8 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class StaffService {
 
-    private StaffRepository staffRepository;
-    private RoleRepository roleRepository;
+    private final StaffRepository staffRepository;
+    private final RoleRepository roleRepository;
+
+    public StaffService (StaffRepository staffRepository, RoleRepository roleRepository) {
+        this.staffRepository = staffRepository;
+        this.roleRepository = roleRepository;
+    }
 
     public Iterable<Staff> getStaff() {
         return staffRepository.findAll();

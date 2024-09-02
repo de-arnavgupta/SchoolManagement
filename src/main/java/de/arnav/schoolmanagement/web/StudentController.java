@@ -16,27 +16,27 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/students")
+    @GetMapping("/student")
     public ResponseEntity<Iterable<Student>> getStudents(){
         return ResponseEntity.ok(studentService.getStudent());
     }
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/student/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id){
         return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
-    @PutMapping("/students/{id}")
+    @PutMapping("/student/{id}")
     public ResponseEntity<Student> updateStudent(Long id, Student updatedStudent){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(studentService.updateStudent(id, updatedStudent));
     }
 
-    @PostMapping("/students/add")
+    @PostMapping("/student/add")
     public ResponseEntity<Student> createStudent(@RequestBody @Valid Student student){
         return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createStudent(student));
     }
 
-    @DeleteMapping("/students/{id}")
+    @DeleteMapping("/student/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id){
         studentService.deleteStudent(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

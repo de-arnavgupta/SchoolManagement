@@ -45,7 +45,7 @@ public class StudentService {
     public Student createStudent(Student student) {
         Role studentRole = roleRepository.getByName("STUDENT");
         if (studentRole == null) {
-            throw new EntityNotFoundException("Student role not found");
+            student.setRole(roleRepository.getByName("STUDENT"));
         }
         student.setRole(studentRole);
         return studentRepository.save(student);

@@ -8,8 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService {
-    private AdminRepository adminRepository;
-    private RoleRepository roleRepository;
+    private final AdminRepository adminRepository;
+    private final RoleRepository roleRepository;
+
+    public AdminService(AdminRepository adminRepository, RoleRepository roleRepository) {
+        this.adminRepository = adminRepository;
+        this.roleRepository = roleRepository;
+    }
 
     public Iterable<Admin> getAdmins() {
         return adminRepository.findAll();
