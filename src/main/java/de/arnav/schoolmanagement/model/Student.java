@@ -16,7 +16,6 @@ public class Student
     private String address;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
     private Role role;
 
     public Student(){}

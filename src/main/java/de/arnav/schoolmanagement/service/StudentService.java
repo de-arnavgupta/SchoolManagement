@@ -5,15 +5,14 @@ import de.arnav.schoolmanagement.model.Role;
 import de.arnav.schoolmanagement.model.Student;
 import de.arnav.schoolmanagement.repository.RoleRepository;
 import de.arnav.schoolmanagement.repository.StudentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class StudentService {
-    private StudentRepository studentRepository;
-    private RoleRepository roleRepository;
-
+    private final StudentRepository studentRepository;
+    private final RoleRepository roleRepository;
 
     public StudentService(StudentRepository studentRepository, RoleRepository roleRepository) {
         this.studentRepository = studentRepository;
@@ -21,30 +20,41 @@ public class StudentService {
     }
 
     public Iterable<Student> getStudent() {
-        return  studentRepository.findAll();
+        return studentRepository.findAll();
     }
 
     public Student getStudentById(Long id) {
-        return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student with id" + id + "not found"));
+        return studentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Student with id " + id + " not found"));
     }
 
     public Student getStudentByName(String name) {
         return studentRepository.getByName(name);
     }
-    public Student updateStudent(Long id, Student updatedstudent) {
+
+    public Student updateStudent(Long id, Student updatedStudent) {
+        if (updatedStudent == null) {
+            throw new NullPointerException("Updated student cannot be null");
+        }
         Student existingStudent = getStudentById(id);
-        existingStudent.setName(updatedstudent.getName());
-        existingStudent.setEmail(updatedstudent.getEmail());
-        existingStudent.setAddress(updatedstudent.getAddress());
+        existingStudent.setName(updatedStudent.getName());
+        existingStudent.setEmail(updatedStudent.getEmail());
+        existingStudent.setAddress(updatedStudent.getAddress());
         return studentRepository.save(existingStudent);
     }
 
     public Student createStudent(Student student) {
         Role studentRole = roleRepository.getByName("STUDENT");
-        student.setRole(roleRepository.getByName("STUDENT"));
+        if (studentRole == null) {
+            throw new EntityNotFoundException("Student role not found");
+        }
+        student.setRole(studentRole);
         return studentRepository.save(student);
     }
+
     public void deleteStudent(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new EntityNotFoundException("Student with id " + id + " not found");
+        }
         studentRepository.deleteById(id);
     }
 }

@@ -1,4 +1,4 @@
-package de.arnav.schoolmanagement;
+package de.arnav.schoolmanagement.web;
 
 import de.arnav.schoolmanagement.model.Student;
 import de.arnav.schoolmanagement.service.StudentService;
@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class StudentController {
 
-    private StudentService studentService;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @GetMapping("/students")
     public ResponseEntity<Iterable<Student>> getStudents(){

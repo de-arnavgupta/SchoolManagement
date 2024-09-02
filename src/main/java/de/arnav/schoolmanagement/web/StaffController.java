@@ -1,4 +1,4 @@
-package de.arnav.schoolmanagement;
+package de.arnav.schoolmanagement.web;
 
 import de.arnav.schoolmanagement.model.Staff;
 import de.arnav.schoolmanagement.service.StaffService;
@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class StaffController {
 
-    private StaffService staffService;
+    private final StaffService staffService;
+
+    public StaffController(StaffService staffService) {
+        this.staffService = staffService;
+    }
 
 
     @GetMapping("/staff")

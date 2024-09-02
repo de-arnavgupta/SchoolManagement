@@ -1,4 +1,4 @@
-package de.arnav.schoolmanagement;
+package de.arnav.schoolmanagement.web;
 
 import de.arnav.schoolmanagement.model.Admin;
 import de.arnav.schoolmanagement.service.AdminService;
@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AdminController {
 
-    private AdminService adminService;
+    private final AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @GetMapping("/admin")
     public ResponseEntity<Iterable<Admin>> getAdmins(){

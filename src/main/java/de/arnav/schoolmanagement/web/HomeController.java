@@ -1,8 +1,7 @@
-package de.arnav.schoolmanagement;
+package de.arnav.schoolmanagement.web;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
