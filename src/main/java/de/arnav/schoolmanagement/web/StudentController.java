@@ -2,9 +2,10 @@ package de.arnav.schoolmanagement.web;
 
 import de.arnav.schoolmanagement.model.Student;
 import de.arnav.schoolmanagement.service.StudentService;
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,10 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    @GetMapping("/csrf-token")
+    public CsrfToken csrfToken(HttpServletRequest request) {
+        return (CsrfToken) request.getAttribute("_csrf");
+    }
     @GetMapping("/student")
     public ResponseEntity<Iterable<Student>> getStudents(){
         return ResponseEntity.ok(studentService.getStudent());
@@ -32,7 +37,7 @@ public class StudentController {
     }
 
     @PostMapping("/student/add")
-    public ResponseEntity<Student> createStudent(@RequestBody @Valid Student student){
+    public ResponseEntity<Student> createStudent(@RequestBody Student student){
         return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createStudent(student));
     }
 

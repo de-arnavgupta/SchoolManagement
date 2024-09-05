@@ -20,7 +20,7 @@ public class Student
 
     public Student(){}
 
-    public Student(Long id, String name, String email, String address) {
+    public Student(Long id, String name, String email, String address, String role1) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -63,7 +63,8 @@ public class Student
         return role;
     }
 
-    public void setRole(Role role) {
+    public Role setRole(Role role) {
         this.role = role;
+        return role;
     }
 }

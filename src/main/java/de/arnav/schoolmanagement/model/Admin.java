@@ -12,7 +12,6 @@ public class Admin
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
     private Role role;
 
     public Admin(){}

@@ -1,7 +1,6 @@
 package de.arnav.schoolmanagement.service;
 
 
-import de.arnav.schoolmanagement.model.Role;
 import de.arnav.schoolmanagement.model.Student;
 import de.arnav.schoolmanagement.repository.RoleRepository;
 import de.arnav.schoolmanagement.repository.StudentRepository;
@@ -39,15 +38,11 @@ public class StudentService {
         existingStudent.setName(updatedStudent.getName());
         existingStudent.setEmail(updatedStudent.getEmail());
         existingStudent.setAddress(updatedStudent.getAddress());
+        existingStudent.setRole(updatedStudent.getRole());
         return studentRepository.save(existingStudent);
     }
 
     public Student createStudent(Student student) {
-        Role studentRole = roleRepository.getByName("STUDENT");
-        if (studentRole == null) {
-            student.setRole(roleRepository.getByName("STUDENT"));
-        }
-        student.setRole(studentRole);
         return studentRepository.save(student);
     }
 
