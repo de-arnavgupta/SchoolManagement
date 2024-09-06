@@ -24,7 +24,7 @@ public class SecurityConfiguration
     public AuthenticationProvider authenticationProvider(@Qualifier("userService") UserDetailsService userDetailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
