@@ -1,11 +1,7 @@
 package de.arnav.schoolmanagement.model;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Entity
 @Table(name = "users")
@@ -16,7 +12,6 @@ public class User {
     private long id;
     private String username;
     private String password;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
